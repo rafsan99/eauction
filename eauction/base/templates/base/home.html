@@ -11,41 +11,21 @@
 
 <div class="home-container">
 
+    <a href="{% url 'create-product'%}">Create Room</a>
     <div>
-        <h3>Browse Topics</h3>
-        <hr>
-
-        <div>
-            <a href="{% url 'home' %}">All</a>
-        </div>
-
-        {% for topic in topics %}
-        <div>
-            <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-        </div>
+        {% for product in products%}
+            <div>
+                <h5>{{product.id}}
+                    {{product.name}}
+                    {{product.description}}
+                    
+                    <img src="{{ product.photo.url }}" style="max-height:300px">
+                    {{product.minimum_bid_price}}
+                    {{product.auction_end_time}}
+                </h5>
+            </div>
         {% endfor %}
-
-    </div>
-
-    <div>
-    {% comment %} <h5>{{room_count}} rooms available</h5>
-        <a href="{% url 'create-room' %}">Create Room</a>
-
-        <div>
-            {% for room in rooms %}
-                <div>
-                    <a href="{% url 'update-room' room.id %}">Edit</a>
-                    <a href="{% url 'delete-room' room.id %}">Delete</a>
-                    <span>@{{room.host.username}}</span>
-                    <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
-                    <small>{{room.topic.name}}</small>
-                    <hr>
-
-                </div>
-            {% endfor %}
-        </div>
-    </div> {% endcomment %}
-
+    </>
     
 </div>
 

@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 class Product(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
-    photo = models.ImageField(upload_to='')
-    minimum_bid_price = models.CharField(max_length=20)
+    photo = models.ImageField(null=True, blank=True, upload_to='images/')
+    minimum_bid_price = models.IntegerField()
     auction_end_time = models.DateTimeField(auto_now=False)
 
     def __str__(self):

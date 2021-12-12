@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from .forms import ProductForm
 # Create your views here.
 
 def loginPage(request):
@@ -43,4 +44,20 @@ def registerPage(request):
 
 @login_required(login_url='login')
 def home(request):
-    return render(request, 'base/home.html')
+    data = Product.objects.all()
+    pro = {
+        "products" : data
+    }
+    return render(request, 'base/home.html', pro)
+
+def createProduct(request):
+    form = ProductForm()
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form' : form}
+    return render(request, 'base/product_form.html', context)
