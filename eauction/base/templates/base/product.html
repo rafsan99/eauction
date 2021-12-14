@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+<div class="room-container">
+    
+    <div>
+        
+        <h1>{{product.name}}</h1>
+        </p>{{product.description}}</p>
+        <img src="{{ product.photo.url }}" style="max-height:300px">
+        <h5>{{product.minimum_bid_price}}</h5>
+        <h5>{{product.auction_end_time}}</h5>
+            
+
+        <div class="comment-wrapper">
+            <h3>Bidding List</h3>
+            <hr>
+
+            {% for bid_price in bid_prices %}
+                <div>
+                    <small>@{{bid_price.user}}  {{bid_price.bidding_price}}</small>
+                    {% if request.user == bid_price.user %}
+                    <a href="{% url 'edit-bid' bid_price.id %}">Edit</a>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="number" name="body" placeholder="Write your bid"/>
+            </form>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

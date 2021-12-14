@@ -16,7 +16,7 @@
         {% for product in products%}
             <div>
                 <h5>{{product.id}}
-                    {{product.name}}
+                    <a href="{% url 'product' product.id %}">{{product.name}}</a>
                     {{product.description}}
                     
                     <img src="{{ product.photo.url }}" style="max-height:300px">

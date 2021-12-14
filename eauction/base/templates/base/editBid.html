@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div class="comment-form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="number" name="body" placeholder="Write your bid"/>
+    </form>
+</div>
+{% endif %}
+
+{% endblock content %}
