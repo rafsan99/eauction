@@ -11,14 +11,13 @@
 
 <div class="home-container">
 
-    <a href="{% url 'create-product'%}">Create Room</a>
+    <a href="{% url 'create-product'%}">Create Product</a>
     <div>
-        {% for product in products%}
+        {% for product in products %}
             <div>
                 <h5>{{product.id}}
                     <a href="{% url 'product' product.id %}">{{product.name}}</a>
                     {{product.description}}
-                    
                     <img src="{{ product.photo.url }}" style="max-height:300px">
                     {{product.minimum_bid_price}}
                     {{product.auction_end_time}}

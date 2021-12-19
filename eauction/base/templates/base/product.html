@@ -13,7 +13,15 @@
         <h5>{{product.minimum_bid_price}}</h5>
         <h5>{{product.auction_end_time}}</h5>
             
-
+        
+        <div>
+            {% if current_time > end_time %}
+                <h1>Winner of this auction is {{ winner }}</h1>
+            {% else %}
+                <h1>Auction is going on.....</h1>
+            {% endif %}   
+        </div>
+        
         <div class="comment-wrapper">
             <h3>Bidding List</h3>
             <hr>
@@ -21,7 +29,7 @@
             {% for bid_price in bid_prices %}
                 <div>
                     <small>@{{bid_price.user}}  {{bid_price.bidding_price}}</small>
-                    {% if request.user == bid_price.user %}
+                    {% if request.user == bid_price.user and current_time < end_time %}
                     <a href="{% url 'edit-bid' bid_price.id %}">Edit</a>
                     {% endif %}
                     <hr>
@@ -31,12 +39,16 @@
 
 
         {% if request.user.is_authenticated %}
-        <div class="comment-form">
-            <form method="POST" action="">
-                {% csrf_token %}
-                <input type="number" name="body" placeholder="Write your bid"/>
-            </form>
-        </div>
+            {% if current_time < end_time %}
+                {% if bidding_number == 0 %}
+                    <div class="comment-form">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <input type="number" name="body" placeholder="Write your bid"/>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
         {% endif %}
 
     </div>
